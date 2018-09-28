@@ -1,0 +1,531 @@
+/* Include the files we're dependent on. */
+//@import "../../_bourbon/bourbon";
+@import "components/partials/normalize";
+@import "components/partials/variables";
+@import "components/partials/extends";
+@import "components/partials/common";
+@import "components/partials/type";
+@import "components/partials/form";
+@import "components/partials/derrick";
+//@import "components/partials/video";
+
+header {
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  .wrapper {
+    @extend .clearfix;
+    padding: 4em 2em;
+  }
+
+  .brand-logo, .client-logo {
+    @extend %text-hide;
+    background: $sprite-url no-repeat 0 0;
+    transition: all 0.3s ease;
+  }
+
+  .brand-logo {
+    @include background-sprite(126px, 79px, -158px, -1px, 40vw);
+    float: left;
+  }
+  .client-logo {
+    @include background-sprite(96px, 96px, -303px, 0, 35vw);
+    float: right;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+//  20% {
+//    opacity: 0;
+//  }
+//  80% {
+//    opacity: 1;
+//  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes snow {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px;
+  }
+  100% {
+    background-position: 500px 1000px, 400px 400px, 300px 300px;
+  }
+}
+
+.intro {
+  height: 32vw;
+  min-height: 554px;
+  position: relative;
+  @media (max-width: 500px) {
+    min-height: 450px;
+  }
+  .bg-image {
+    background: #151a38 url("../img/intro-bg.jpg") center center/ cover no-repeat;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    .snow {
+      background-image: url("../img/snow1.png"), url("../img/snow2.png"), url("../img/snow3.png");
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      -webkit-animation: snow 10s linear infinite;
+      -moz-animation: snow 10s linear infinite;
+      -ms-animation: snow 10s linear infinite;
+      animation: snow 10s linear infinite;
+      position: absolute;
+    }
+  }
+
+  svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    .curve {
+      fill: none;
+      stroke: white;
+      stroke-width: 2px;
+      stroke-dasharray: 1100;
+      stroke-dashoffset: 1100;
+      animation: dash 1.5s linear 0.8s forwards;
+      @media (max-width: 500px) {
+        stroke-width: 4px;
+      }
+    }
+
+    .fill {
+      fill: white;
+      opacity: 0;
+      animation: fill 0.6s ease-in forwards;
+      animation-delay: 1.5s;
+    }
+  }
+  @keyframes dash {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes fill {
+    to { opacity: 1; }
+  }
+//  &:after {
+//    @include empty-block;
+//    background: url("../img/white-curve.png") center center/cover no-repeat;
+//    bottom: -1px;
+//    left: 0;
+//    width: 100%;
+//    height: 12vw;
+//  }
+  > .wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    .text-box {
+      animation: fadeIn 1.5s linear forwards;
+      opacity: 0;
+      h1 {
+        span {
+          @extend %text-hide;
+          @include background-sprite(154px, 48px, 0, 0);
+          display: inline-block;
+          vertical-align: middle;
+
+        }
+      }
+    }
+  }
+}
+
+.bubbles {
+  padding: 5em 0 0 0;
+  background: $feature-color;
+  position: relative;
+  z-index: 10;
+  &:before, &:after {
+    @include empty-block;
+    background: url("../img/red-curve3.png") center center/cover no-repeat;
+    left: 0;
+    width: 100%;
+    height: 97px;
+    @media (max-width: 1280px) {
+      height: 7.6vw;
+    }
+  }
+  &:before {
+    top: 1px;
+    transform: translate(0px, -100%);
+  }
+  &:after {
+    bottom: 1px;
+    transform: translate(0px, 100%) rotate(180deg);
+    z-index: 10;
+  }
+  .wrapper {
+    @extend .clearfix;
+    .text-box {
+      display: inline-block;
+      width: 50%;
+      text-align: left;
+      @media (max-width: 995px) {
+        width: 100%;
+      }
+      span {
+        white-space: nowrap;
+      }
+    }
+    .bubblewrap {
+      display: inline-block;
+      width: 49%;
+      height: 460px;
+      z-index: 20;
+      position: relative;
+      @media (max-width: 995px) {
+        width: 50%;
+        height: 280px;
+        margin: 4em auto 0;
+        min-width: 290px;
+      }
+      @media (max-width: 450px) {
+        max-width: 90%;
+        height: 70vw;
+      }
+      .big-bubble, .small-bubble {
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        overflow: hidden;
+        z-index: 30;
+        transform: scale(0);
+        @media (max-width: 810px) {
+          transform: scale(1);
+        }
+      }
+
+      .big-bubble {
+        width: 399px;
+        height: 399px;
+        top: 148px;
+        left: 32px;
+        img {
+          width: auto;
+          height: 100%;
+          margin-left: -50%;
+        }
+        @media (max-width: 995px) {
+          left: calc(50% - 200px);
+          top: 0;
+        }
+        @media (max-width: 450px) {
+          max-height: 90vw;
+          max-width: 90vw;
+          left: calc(50% - 45vw);
+        }
+      }
+      .small-bubble {
+        width: 228px;
+        height: 228px;
+        bottom: -240px;
+        right: 0;
+        img {
+          width: 100%;
+          height: auto;
+          margin-top: -30%;
+        }
+        @media (max-width: 995px) {
+          right: 0;
+          bottom: -270px;
+        }
+        @media (max-width: 450px) {
+          max-height: 70vw;
+          max-width: 70vw;
+        }
+        @media (max-width: 400px) {
+          bottom: -250px;
+        }
+        @media (max-width: 377px) {
+          bottom: -220px;
+        }
+      }
+      .bubble {
+        position: absolute;
+        z-index: 40;
+        &:before {
+          transform: scale(0);
+          @include empty-block;
+          transform-origin: center;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+        @media (max-width: 1024px) {
+          display: none;
+        }
+      }
+      .bubble1 {
+        right: 150px;
+        top: 30px;
+        &:before {
+          @include background-sprite(105px, 105px, -5px, -110px);
+        }
+      }
+      .bubble2 {
+        right: 40px;
+        top: 150px;
+        &:before {
+          @include background-sprite(41px, 40px, -128px, -111px);
+        }
+      }
+      .bubble3 {
+        right: -10px;
+        top: 230px;
+        &:before {
+          @include background-sprite(24px, 24px, -191px, -112px);
+        }
+      }
+      .bubble4 {
+        bottom: -90px;
+        left: 0;
+        &:before {
+          @include background-sprite(87px, 85px, -223px, -112px);
+        }
+      }
+      .bubble5 {
+        bottom: -190px;
+        left: 80px;
+        &:before {
+          @include background-sprite(41px, 40px, -128px, -159px);
+        }
+      }
+      .bubble6 {
+        bottom: -200px;
+        left: 30px;
+        &:before {
+          @include background-sprite(18px, 17px, -193px, -150px);
+        }
+      }
+      .bubble7 {
+        bottom: -140px;
+        left: 110px;
+        &:before {
+          @include background-sprite(18px, 17px, -193px, -150px);
+        }
+      }
+
+      &.animation {
+        .big-bubble {
+          animation: grow 1.5s ease 1.4s forwards;
+        }
+       .small-bubble {
+          animation: grow 1.5s ease 1.6s forwards;
+          }
+        .bubble1:before {
+          animation: grow 1.5s ease 1s forwards;
+        }
+        .bubble2:before {
+          animation: grow 1.5s ease 1.1s forwards;
+        }
+        .bubble3:before {
+          animation: grow 1.5s ease 1.2s forwards;
+        }
+        .bubble4:before {
+          animation: grow 1.5s ease 1.8s forwards;
+        }
+        .bubble5:before {
+          animation: grow 1.5s ease 2s forwards;
+        }
+        .bubble6:before {
+          animation: grow 1.5s ease 2.2s forwards;
+        }
+        .bubble7:before {
+          animation: grow 1.5s ease 2.4s forwards;
+        }
+      }
+    }
+  }
+}
+
+.product {
+  position: relative;
+  padding: calc(165px + 5vw) 0 5em;
+  background: $white;
+  color: $feature-color;
+  &:before {
+    @include empty-block;
+    background: $white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    transform: translate(0, -100%);
+    z-index: 0;
+  }
+  @media(max-width: 980px) {
+    padding: 215px 0 5em;
+  }
+}
+
+.video {
+  .no-js #video .wrapper {
+    max-width: 740px;
+  }
+
+  .stretching {
+    margin: 0 auto;
+    transition: width 0.5s ease;
+    max-width: 100%;
+    &.playing {
+      @media (min-width: 740px) {
+        width: 100%;
+      }
+    }
+  }
+  .iframe {
+    width: 100%;
+    max-width: 100%;
+    height: 0;
+    padding-bottom: 56.2%;
+    margin-bottom: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+    iframe {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+.filter {
+  position: relative;
+  background-color: $feature-color;
+  padding: 8em 0;
+  img {
+    margin: 6em auto;
+    max-width: 90%;
+    height: auto;
+  }
+}
+
+.competition {
+  background-color: $feature-color;
+  padding: 5em 0;
+  text-align: left;
+  h1 {
+    color: $competition-text-color;
+  }
+  .form-wrapper {
+    &.thank-you {
+      padding-top: 40em;
+      padding-bottom: 200px;
+      text-align: center;
+    }
+  }
+
+  a {
+    font-weight: 700;
+  }
+  .column {
+    max-width: 660px;
+    margin: auto;
+  }
+  p {
+    font-size: 1.5em;
+  }
+
+  .cta {
+    text-align: center;
+    background-color: $feature-color;
+    color: $white;
+    button {
+      background: transparent;
+    }
+    display: inline-block;
+    margin: 2em auto 0;
+    float: none;
+    button {
+      text-transform: uppercase;
+    }
+  }
+  .competition-question {
+    .question-container {
+      font-size: 1.6em;
+      margin: 1em 0;
+    }
+    .answers-container {
+      ul {
+        list-style: none;
+        text-align: center;
+        margin: 1em;
+        li {
+          margin: 1em 2em 0 0;
+          font-size: 1.2em;
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .competition-optins {
+    margin-top: 5em;
+    p {
+      label {
+        font-size: 1em;
+        color: $form-optin-label-color;
+        text-align: left;
+      }
+    }
+    &.cta {
+      text-align: center;
+    }
+  }
+  small {
+    text-align: right;
+    display: block;
+  }
+}
+
+footer {
+  color: $feature-color;
+  background-color: $white;
+  text-transform: uppercase;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.krux {
+  height: 0;
+  overflow: hidden;
+}
+
+@import "components/partials/responsive";
